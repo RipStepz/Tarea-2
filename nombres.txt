@@ -1,2 +1,0 @@
-1. Nombre: Arturo Almonacid || Rol: 202373515-9 || Encargado de: segunda mitad funcion main y funciones.cpp
-2. Nombre: Martina hidalgo || Rol: 202373597-2 || Encargado de: primera mitad funcion main y logica_piezas.cpp
