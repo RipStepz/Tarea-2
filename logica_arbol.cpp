@@ -2,8 +2,8 @@
 #include "funciones.hpp"
 using namespace std;
 
-//Nodo *arbol = NULL;
- 
+// Alias para facilitar el uso
+
 nodo *arbol = nullptr;
 
 void menu() {
@@ -57,9 +57,15 @@ void menu() {
     } while (opcion != 5);
 }
 
+nodo *crearNodo(int n, char ch) {
+    nodo* nuevo_nodo = new nodo(n, ch);
 
-nodo *crearNodo(int index, char c) {
-    return new nodo(index, c);
+    nuevo_nodo->index = n;
+    nuevo_nodo->c = ch;
+    nuevo_nodo->right = nullptr;
+    nuevo_nodo->left = nullptr;
+
+    return  nuevo_nodo;
 }
 
 void insertarNodo(nodo *& arbol, int index, char c) {
@@ -81,9 +87,9 @@ void mostrarArbol(nodo *arbol, int cont) {
     } else {
         mostrarArbol(arbol->right, cont + 1);
         for (int i = 0; i < cont; i++) {
-            cout << "   ";
+            cout << "      ";
         }
-        cout << arbol->index << " (" << arbol->c << ")" << endl;
+        cout <<"(" <<arbol->index <<", " <<arbol->c << ")" << endl;
         mostrarArbol(arbol->left, cont + 1);
     }
 }
