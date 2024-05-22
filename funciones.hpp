@@ -9,7 +9,4 @@ struct Nodo {
     Nodo *padre;
 };
 
-int filas(float contador);
-int columnas (float contador);
-
 #endif
