@@ -143,39 +143,3 @@ void eliminar(nodo *&arbol, int index) {
          return arbol;
      }
  }
-
-// void reemplazar(nodo *arbol, nodo *nuevoNodo) {
-//     if (arbol->left == nuevoNodo) {
-//         arbol->left = nuevoNodo;
-//     } else if (arbol->right == nuevoNodo) {
-//         arbol->right = nuevoNodo;
-//     }
-//     if (nuevoNodo) {
-//         nuevoNodo->left = arbol->left;
-//         nuevoNodo->right = arbol->right;
-//     }
-// }
-
-// void destruirNodo(nodo *nodo) {
-//     nodo->left = nullptr;
-//     nodo->right = nullptr;
-//     delete nodo;
-// }
-
-// void eliminarNodo(nodo *nodoEliminar) {
-//     if (nodoEliminar->left && nodoEliminar->right) {
-//         nodo *menor = minimo(nodoEliminar->right);
-//         nodoEliminar->index = menor->index;
-//         nodoEliminar->c = menor->c;
-//         eliminarNodo(menor);
-//     } else if (nodoEliminar->left) {
-//         reemplazar(nodoEliminar, nodoEliminar->left);
-//         destruirNodo(nodoEliminar);
-//     } else if (nodoEliminar->right) {
-//         reemplazar(nodoEliminar, nodoEliminar->right);
-//         destruirNodo(nodoEliminar);
-//     } else {
-//         reemplazar(nodoEliminar, nullptr);
-//         destruirNodo(nodoEliminar);
-//     }
-// }

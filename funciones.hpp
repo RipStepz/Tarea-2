@@ -4,12 +4,6 @@
 #include <string>
 using namespace std;
 
-//struct Nodo {
-//    int dato;
-//    Nodo *der;
-//    Nodo *izq;
-//    Nodo *padre;
-//};
 struct nodo {
  nodo *left = nullptr, *right = nullptr;
  int index;
