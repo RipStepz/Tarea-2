@@ -52,7 +52,27 @@ void menu(){
                 cout<< "\n";
                 system("pause");
                 break;
-        
+        case 3: cout <<"\nDigite el elemento a buscar: ";
+                cin >> dato;
+                if(busqueda(arbol , dato) == true){
+                    cout<<"\nElemento "<< dato <<" a sudi encontrado en el arbol";
+                }
+                else{
+                    cout << "\nElemento no encontrado \n";
+                }
+                cout<< "\n";
+                system("pause");
+                break;
         }
-    }
+        system("cls");
+    } while(opcion != 4);
+}
+
+Nodo *crearNodo(int n){
+    Nodo *nuevo_nodo = new Nodo();
+    nuevo_nodo-> dato = n;
+    nuevo_nodo-> der = NULL;
+    nuevo_nodo -> izq = NULL;
+
+    return nuevo_nodo;
 }
