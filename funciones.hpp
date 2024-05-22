@@ -9,4 +9,15 @@ struct Nodo {
     Nodo *padre;
 };
 
+void menu();
+Nodo *crearNodo(int, Nodo *);
+void insertarNodo(Nodo *&, int, Nodo *);
+void mostrarArbol(Nodo *, int);
+bool busqueda(Nodo *, int);
+void eliminar(Nodo *&, int);
+void eliminarNodo(Nodo *);
+Nodo *minimo(Nodo *);
+void reemplazar(Nodo *, Nodo *);
+void destruirNodo(Nodo *);
+
 #endif
