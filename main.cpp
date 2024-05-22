@@ -18,6 +18,8 @@ Nodo *crearNodo(int,Nodo *);
 void insertarNodo(Nodo *&, int,Nodo *);
 void mostrarArbol(Nodo *, int);
 bool busqueda(Nodo * , int);
+void eliminar(Nodo *, int);
+void eliminarNodo(Nodo *);
 
 Nodo *arbol = NULL;
 
@@ -91,5 +93,32 @@ void insertarNodo(Nodo *&arbol, int n, Nodo *padre){
         else{
             insertarNodo(arbol->der,n, arbol);
         }
+    }
+}
+
+void eliminar(Nodo *arbol, int n){
+    if(arbol == NULL){
+        return;
+    }
+    else if(n < arbol-> dato){
+        eliminar(arbol -> izq,n);
+    }
+    else if(n > arbol-> dato){
+        eliminar(arbol -> der,n);
+    }
+    else{
+        eliminarNodo(arbol);
+    }
+}
+
+Nodo *minimo(Nodo *arbol){
+    if(arbol ==NULL){
+        return NULL;
+    }
+    if(arbol -> izq){
+        return minimo(arbol -> izq);
+    }
+    else{
+        return arbol;
     }
 }
