@@ -1,24 +1,32 @@
 #ifndef FUNCIONES_HPP
 #define FUNCIONES_HPP
 #include <stdio.h>
+#include <string>
+using namespace std;
 
-struct Nodo {
-    int dato;
-    Nodo *der;
-    Nodo *izq;
-    Nodo *padre;
-};
+//struct Nodo {
+//    int dato;
+//    Nodo *der;
+//    Nodo *izq;
+//    Nodo *padre;
+//};
+struct nodo {
+ nodo *left = nullptr, *right = nullptr;
+ int index;
+ char c;
+ nodo(int index, char c) {}
+ nodo(){}
+ };
 
 void menu();
-Nodo *crearNodo(int, Nodo *);
-void insertarNodo(Nodo *&, int, Nodo *);
-void mostrarArbol(Nodo *, int);
-bool busqueda(Nodo *, int);
-void eliminar(Nodo *&, int);
-void eliminarNodo(Nodo *);
-Nodo *minimo(Nodo *);
-void reemplazar(Nodo *, Nodo *);
-void destruirNodo(Nodo *);
+void insertarNodo(nodo *&, int, char);
+void mostrarArbol(nodo *, int);
+bool busqueda(nodo *, int);
+void eliminar(nodo *&, int);
+void eliminarNodo(nodo *);
+nodo *minimo(nodo *);
+void reemplazar(nodo *, nodo *);
+void destruirNodo(nodo *);
 
 class super_string {
  private:
