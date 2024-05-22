@@ -157,3 +157,5 @@ void eliminarNodo(Nodo *nodoEliminar) {
         destruirNodo(nodoEliminar);
     }
 }
+
+string stringizar();
