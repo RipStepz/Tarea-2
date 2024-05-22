@@ -8,6 +8,7 @@
 using namespace std;
 
 int main() {
-    menu();
+    super_string ss;
+    ss.menu();
     return 0;
 }
