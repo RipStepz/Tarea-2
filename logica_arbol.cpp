@@ -109,58 +109,73 @@ bool busqueda(nodo *arbol, int index) {
 void eliminar(nodo *&arbol, int index) {
     if (arbol == nullptr) {
         return;
-    } else if (index < arbol->index) {
+    }
+
+    if (index < arbol->index) {
         eliminar(arbol->left, index);
     } else if (index > arbol->index) {
         eliminar(arbol->right, index);
     } else {
-        eliminarNodo(arbol);
+        if (arbol->left == nullptr) {
+            nodo *temp = arbol->right;
+            delete arbol;
+            arbol = temp;
+        } else if (arbol->right == nullptr) {
+            nodo *temp = arbol->left;
+            delete arbol;
+            arbol = temp;
+        } else {
+            nodo *sucesor = minimo(arbol->right);
+            arbol->index = sucesor->index;
+            arbol->c = sucesor->c;
+            eliminar(arbol->right, sucesor->index);
+        }
     }
 }
 
-nodo *minimo(nodo *arbol) {
-    if (arbol == nullptr) {
-        return nullptr;
-    }
-    if (arbol->left) {
-        return minimo(arbol->left);
-    } else {
-        return arbol;
-    }
-}
+ nodo *minimo(nodo *arbol) {
+     if (arbol == nullptr) {
+         return nullptr;
+     }
+     if (arbol->left) {
+         return minimo(arbol->left);
+     } else {
+         return arbol;
+     }
+ }
 
-void reemplazar(nodo *arbol, nodo *nuevoNodo) {
-    if (arbol->left == nuevoNodo) {
-        arbol->left = nuevoNodo;
-    } else if (arbol->right == nuevoNodo) {
-        arbol->right = nuevoNodo;
-    }
-    if (nuevoNodo) {
-        nuevoNodo->left = arbol->left;
-        nuevoNodo->right = arbol->right;
-    }
-}
+// void reemplazar(nodo *arbol, nodo *nuevoNodo) {
+//     if (arbol->left == nuevoNodo) {
+//         arbol->left = nuevoNodo;
+//     } else if (arbol->right == nuevoNodo) {
+//         arbol->right = nuevoNodo;
+//     }
+//     if (nuevoNodo) {
+//         nuevoNodo->left = arbol->left;
+//         nuevoNodo->right = arbol->right;
+//     }
+// }
 
-void destruirNodo(nodo *nodo) {
-    nodo->left = nullptr;
-    nodo->right = nullptr;
-    delete nodo;
-}
+// void destruirNodo(nodo *nodo) {
+//     nodo->left = nullptr;
+//     nodo->right = nullptr;
+//     delete nodo;
+// }
 
-void eliminarNodo(nodo *nodoEliminar) {
-    if (nodoEliminar->left && nodoEliminar->right) {
-        nodo *menor = minimo(nodoEliminar->right);
-        nodoEliminar->index = menor->index;
-        nodoEliminar->c = menor->c;
-        eliminarNodo(menor);
-    } else if (nodoEliminar->left) {
-        reemplazar(nodoEliminar, nodoEliminar->left);
-        destruirNodo(nodoEliminar);
-    } else if (nodoEliminar->right) {
-        reemplazar(nodoEliminar, nodoEliminar->right);
-        destruirNodo(nodoEliminar);
-    } else {
-        reemplazar(nodoEliminar, nullptr);
-        destruirNodo(nodoEliminar);
-    }
-}
+// void eliminarNodo(nodo *nodoEliminar) {
+//     if (nodoEliminar->left && nodoEliminar->right) {
+//         nodo *menor = minimo(nodoEliminar->right);
+//         nodoEliminar->index = menor->index;
+//         nodoEliminar->c = menor->c;
+//         eliminarNodo(menor);
+//     } else if (nodoEliminar->left) {
+//         reemplazar(nodoEliminar, nodoEliminar->left);
+//         destruirNodo(nodoEliminar);
+//     } else if (nodoEliminar->right) {
+//         reemplazar(nodoEliminar, nodoEliminar->right);
+//         destruirNodo(nodoEliminar);
+//     } else {
+//         reemplazar(nodoEliminar, nullptr);
+//         destruirNodo(nodoEliminar);
+//     }
+// }
