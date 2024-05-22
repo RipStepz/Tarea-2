@@ -19,7 +19,10 @@ void insertarNodo(Nodo *&, int,Nodo *);
 void mostrarArbol(Nodo *, int);
 bool busqueda(Nodo * , int);
 void eliminar(Nodo *, int);
-void eliminarNodo(Nodo *);
+void eliminarNodo(Nodo*);
+Nodo *minimo(Nodo *);
+void reemplazar(Nodo *,Nodo *);
+void destruirNodo(Nodo *);
 
 Nodo *arbol = NULL;
 
@@ -36,7 +39,8 @@ void menu(){
         cout<<"1. Insertar un nuevo nodo" << endl;
         cout<<"2. Mostrar el arbol completo" << endl;
         cout<<"3. Buscar un elemento del arbol" << endl;
-        cout<<"4. Salir" << endl;
+        cout<<"4. Eliminar un nodo del arbol" << endl;
+        cout<<"5. Salir" << endl;
         cout<<"Opcion: ";
         cin >> opcion;
 
@@ -65,9 +69,15 @@ void menu(){
                 cout<< "\n";
                 system("pause");
                 break;
+        case 4: cout <<"\nDigite el numero a eliminar: ";
+                cin>>dato;
+                eliminar(arbol , dato);
+                cout<<"\n";
+                system("pause");
+                break;
         }
         system("cls");
-    } while(opcion != 4);
+    } while(opcion != 5);
 }
 
 Nodo *crearNodo(int n, Nodo *padre){
@@ -122,3 +132,45 @@ Nodo *minimo(Nodo *arbol){
         return arbol;
     }
 }
+
+void reemplazar(Nodo *arbol,Nodo *nuevoNodo){
+    if(arbol->padre){
+        if(arbol->dato == arbol->padre->izq->dato){
+            arbol->padre->izq - nuevoNodo;
+        }
+        else if(arbol->dato == arbol->padre->der->dato){
+            arbol->padre->der = nuevoNodo;
+        }  
+    }
+    if(nuevoNodo){
+        nuevoNodo->padre = arbol->padre;
+    }
+}
+
+void destruirNodo(Nodo *nodo){
+    nodo->izq = NULL;
+    nodo->der = NULL;
+
+    delete nodo;
+}
+
+
+void eliminarNodo(Nodo *nodoEliminar){
+    if(nodoEliminar->izq && nodoEliminar->der){
+        Nodo *menor = minimo(nodoEliminar->der);
+        nodoEliminar->dato = menor->dato;
+        eliminarNodo(menor);
+    }
+    else if(nodoEliminar->izq){
+        reemplazar(nodoEliminar,nodoEliminar->izq);
+        destruirNodo(nodoEliminar);
+    }
+    else if(nodoEliminar->der){
+        reemplazar(nodoEliminar,nodoEliminar->der);
+        destruirNodo(nodoEliminar);
+    }
+    else{
+        reemplazar(nodoEliminar,NULL);
+        destruirNodo(nodoEliminar);
+    }
+} 
