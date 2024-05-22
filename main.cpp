@@ -42,7 +42,7 @@ void menu(){
         {
         case 1: cout<<"\nDigite un numero:";
                 cin>> dato;
-                insertarNodo(arbol, dato);
+                insertarNodo(arbol, dato, NULL);
                 cout <<"\n";
                 system("pause");
                 break;
@@ -68,11 +68,28 @@ void menu(){
     } while(opcion != 4);
 }
 
-Nodo *crearNodo(int n){
+Nodo *crearNodo(int n, Nodo *padre){
     Nodo *nuevo_nodo = new Nodo();
+
     nuevo_nodo-> dato = n;
     nuevo_nodo-> der = NULL;
     nuevo_nodo -> izq = NULL;
-
+    nuevo_nodo -> padre = padre;
     return nuevo_nodo;
+}
+
+void insertarNodo(Nodo *&arbol, int n, Nodo *padre){
+    if(arbol = NULL){
+        Nodo *nuevo_nodo = crearNodo(n, padre);
+        arbol = nuevo_nodo;
+    }
+    else{
+        int valorRaiz = arbol->dato;
+        if(n < valorRaiz){
+            insertarNodo(arbol->izq,n, arbol);
+        }
+        else{
+            insertarNodo(arbol->der,n, arbol);
+        }
+    }
 }
