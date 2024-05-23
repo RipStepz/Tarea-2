@@ -281,3 +281,4 @@ void super_string::menu(super_string &arbol) {
         system("clear");
     } while (opcion != 10);
 }
+string i = "Borrame pls UwU";
