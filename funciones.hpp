@@ -28,6 +28,10 @@ private:
  bool busqueda(nodo *arbol, int index);
  void eliminar(nodo *&arbol, int index);
  nodo *minimo(nodo *arbol);
+ string inOrden(nodo *arbol);
+ void EliminarIntervalo(nodo *arbol ,int a, int b);
+
+
  //void juntar(super_string &s);
  //void agregar(char c); // Insertar un caracter en la última posición
  // En la izquierda esta el super_string a y en la derecha el super_string b
