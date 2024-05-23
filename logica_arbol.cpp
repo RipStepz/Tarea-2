@@ -2,15 +2,8 @@
 #include "funciones.hpp"
 using namespace std;
 
-
 super_string::nodo *super_string::crearNodo(int n, char ch) {
     nodo* nuevo_nodo = new nodo(n, ch);
-
-    nuevo_nodo->index = n;
-    nuevo_nodo->c = ch;
-    nuevo_nodo->right = nullptr;
-    nuevo_nodo->left = nullptr;
-
     return  nuevo_nodo;
 }
 
@@ -79,35 +72,49 @@ void super_string::eliminar(nodo *&arbol, int index) {
     }
 }
 
- super_string::nodo *super_string::minimo(nodo *arbol) {
-     if (arbol == nullptr) {
-         return nullptr;
-     }
-     if (arbol->left) {
-         return minimo(arbol->left);
-     } else {
-         return arbol;
-     }
- }
- string super_string::inOrden(nodo *arbol) {
-     string resultado = "";
-     if (arbol == nullptr) {
-         return resultado;
-     } else {
-         resultado += inOrden(arbol->left);
-         resultado += arbol->c;
-         resultado += inOrden(arbol->right);
-         return resultado;
-     }
- }
+super_string::nodo *super_string::minimo(nodo *arbol) {
+    if (arbol == nullptr) {
+        return nullptr;
+    }
+    if (arbol->left) {
+        return minimo(arbol->left);
+    } else {
+        return arbol;
+    }
+}
 
- void super_string::EliminarIntervalo(nodo *arbol ,int a, int b){
-     while (a <= b)
-     {
-         eliminar(arbol, a);
-         a +=1;
-     } 
- }
+string super_string::inOrden(nodo *arbol) {
+    string resultado = "";
+    if (arbol == nullptr) {
+        return resultado;
+    } else {
+        resultado += inOrden(arbol->left);
+        resultado += arbol->c;
+        resultado += inOrden(arbol->right);
+        return resultado;
+    }
+}
+
+void super_string::EliminarIntervalo(nodo *arbol ,int a, int b){
+    while (a <= b) {
+        eliminar(arbol, a);
+        a += 1;
+    } 
+}
+
+void super_string::separar(int i, super_string &a, super_string &b) {
+    string s = inOrden(arbol);
+    string left_part = s.substr(0, i);
+    string right_part = s.substr(i);
+
+    for (int j = 0; j < left_part.length(); j++) {
+        a.insertarNodo(a.arbol, j, left_part[j]);
+    }
+
+    for (int j = 0; j < right_part.length(); j++) {
+        b.insertarNodo(b.arbol, j, right_part[j]);
+    }
+}
 
 void super_string::menu(super_string &arbol) {
     int dato, opcion, contador = 0;
@@ -120,7 +127,8 @@ void super_string::menu(super_string &arbol) {
         cout << "4. Eliminar un nodo del arbol" << endl;
         cout << "5. Recorrer el arbol en In-Orden" << endl;
         cout << "6. Eliminar intervalo" << endl;
-        cout << "7. Salir" << endl;
+        cout << "7. Separar super-string" << endl;
+        cout << "8. Salir" << endl;
         cout << "Opcion: ";
         cin >> opcion;
 
@@ -130,20 +138,20 @@ void super_string::menu(super_string &arbol) {
             cin >> dato;
             cout << "Digite un caracter: ";
             cin >> c;
-            arbol.insertarNodo(arbol.arbol, dato, c); // Cambiar arbol->insertarNodo por arbol.insertarNodo
+            arbol.insertarNodo(arbol.arbol, dato, c); 
             cout << "\n";
             break;
         case 2:
             cout << "\nMostrando el arbol completo:\n\n";
             int Pause;
-            arbol.mostrarArbol(arbol.arbol, contador); // Cambiar arbol->mostrarArbol por arbol.mostrarArbol
+            arbol.mostrarArbol(arbol.arbol, contador); 
             cout << "\nPresiona cualquier numero para volver al menú...";
             cin >> Pause;
             break;
         case 3:
             cout << "\nDigite el elemento a buscar: ";
             cin >> dato;
-            if (arbol.busqueda(arbol.arbol, dato)) { // Cambiar arbol->busqueda por arbol.busqueda
+            if (arbol.busqueda(arbol.arbol, dato)) { 
                 cout << "\nElemento " << dato << " ha sido encontrado en el arbol";
             } else {
                 cout << "\nElemento no encontrado";
@@ -154,7 +162,7 @@ void super_string::menu(super_string &arbol) {
         case 4:
             cout << "\nDigite el numero a eliminar: ";
             cin >> dato;
-            arbol.eliminar(arbol.arbol, dato); // Cambiar arbol->eliminar por arbol.eliminar
+            arbol.eliminar(arbol.arbol, dato); 
             cout << "\n";
             break;
         case 5:
@@ -165,12 +173,24 @@ void super_string::menu(super_string &arbol) {
             break;
         case 6:
             int a, b;
-            cout<<"\n digite el primer digito: ";
+            cout<<"\nDigite el primer digito: ";
             cin >> a;
-            cout<<"\n digite el segundo digito: ";
+            cout<<"\nDigite el segundo digito: ";
             cin>> b;
-            EliminarIntervalo(arbol.arbol ,a ,b );        
+            arbol.EliminarIntervalo(arbol.arbol, a, b);        
+            break;
+        case 7:
+            super_string s1, s2;
+            int pos;
+            cout << "\nDigite la posicion para separar: ";
+            cin >> pos;
+            arbol.separar(pos, s1, s2);
+            cout << "\nParte izquierda: " << inOrden(s1.arbol);
+            cout << "\nParte derecha: " << inOrden(s2.arbol);
+            cout << "\nPresiona cualquier numero para volver al menú...";
+            cin >> Pause;
+            break;
         }
         system("clear");
-    } while (opcion != 7);
+    } while (opcion != 8);
 }
