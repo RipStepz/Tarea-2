@@ -130,10 +130,39 @@ void super_string::separar(int i, super_string &a, super_string &b) {
     }
 }
 
+int super_string::obtenerIndiceMaximo(nodo *arbol) {
+    if (arbol == nullptr) return -1; // Si el árbol está vacío, devuelve -1
+
+    // Recorre el árbol hacia la derecha para encontrar el nodo con el índice más alto
+    while (arbol->right != nullptr) {
+        arbol = arbol->right;
+    }
+
+    return arbol->index; // Devuelve el índice del nodo más a la derecha
+}
+
+
+void super_string::juntar(super_string &parteRecortada, super_string &parteSobrante) {
+    if (parteRecortada.arbol == nullptr) return;
+    
+    // Obtén el índice más alto del árbol original
+    int indiceMaximo = obtenerIndiceMaximo(arbol);
+    
+    // Obtén el string inorden de la parte sobrante
+    string parteSobranteString = parteSobrante.inOrden(parteSobrante.arbol);
+    
+    // Inserta cada nodo de la parte sobrante en el árbol original
+    for (char ch : parteSobranteString) {
+        insertarNodo(arbol, ++indiceMaximo, ch); // Incrementa el índice máximo antes de insertar el nodo
+    }
+}
+
+
 
 void super_string::menu(super_string &arbol) {
     int dato, opcion, contador = 0;
     char c;
+    super_string s1, s2;
     do {
         cout << "\t.:Menu:." << endl;
         cout << "1. Insertar un nuevo nodo" << endl;
@@ -143,7 +172,8 @@ void super_string::menu(super_string &arbol) {
         cout << "5. Recorrer el arbol en In-Orden" << endl;
         cout << "6. Eliminar intervalo" << endl;
         cout << "7. Separar super-string" << endl;
-        cout << "8. Salir" << endl;
+        cout << "8. Juntar super string" << endl;
+        cout << "9. Salir" << endl;
         cout << "Opcion: ";
         cin >> opcion;
 
@@ -195,7 +225,6 @@ void super_string::menu(super_string &arbol) {
             arbol.EliminarIntervalo(arbol.arbol, a, b);        
             break;
         case 7:
-            super_string s1, s2;
             int pos;
             cout << "\nDigite la posicion para separar: ";
             cin >> pos;
@@ -205,7 +234,15 @@ void super_string::menu(super_string &arbol) {
             cout << "\nPresiona cualquier numero para volver al menú...";
             cin >> Pause;
             break;
+        case 8:
+            cout << "\nJuntando árboles...\n";
+            arbol.juntar(arbol, s2); // Juntar la parte recortada (s1) con la parte sobrante (s2)
+            cout << "Árbol resultante:\n";
+            arbol.mostrarArbol(arbol.arbol, contador); // Mostrar el árbol completo
+            cout << "\nPresiona cualquier numero para volver al menú...";
+            cin >> Pause;
+            break;
         }
         system("clear");
-    } while (opcion != 8);
+    } while (opcion != 9);
 }

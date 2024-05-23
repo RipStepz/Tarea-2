@@ -32,5 +32,7 @@ public:
     void EliminarIntervalo(nodo *arbol ,int a, int b);
     void destruirArbol(nodo *&arbol);
     void separar(int i, super_string &a, super_string &b); // Nueva función separar
+    void juntar(super_string &a, super_string &b);
+    int obtenerIndiceMaximo(nodo *arbol);
 };
 #endif
