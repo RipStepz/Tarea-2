@@ -30,16 +30,5 @@ private:
  nodo *minimo(nodo *arbol);
  string inOrden(nodo *arbol);
  void EliminarIntervalo(nodo *arbol ,int a, int b);
-
-
- //void juntar(super_string &s);
- //void agregar(char c); // Insertar un caracter en la última posición
- // En la izquierda esta el super_string a y en la derecha el super_string b
- //void separar(int i, super_string &a, super_string &b);
- //void reverso(); // No debe cambiar la altura del árbol
- //int recortar(); // Retorna this->height después de recortar
- //string stringizar(); // Debe ser O(n)
- //void limpiar(); // Se deben borrar todos los nodos del super-string
 };
-
 #endif
