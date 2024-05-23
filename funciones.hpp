@@ -2,7 +2,10 @@
 #define FUNCIONES_HPP
 #include <stdio.h>
 #include <string>
+#include <algorithm>
 using namespace std;
+
+string invertirString(const string& input);
 
 void menu();
 class super_string {
@@ -34,5 +37,6 @@ public:
     void separar(int i, super_string &a, super_string &b); // Nueva función separar
     void juntar(super_string &a, super_string &b);
     int obtenerIndiceMaximo(nodo *arbol);
+    void reverso();
 };
 #endif

@@ -101,6 +101,7 @@ void super_string::EliminarIntervalo(nodo *arbol ,int a, int b){
         a += 1;
     } 
 }
+
 void super_string::destruirArbol(nodo *&arbol) {
     if (arbol != nullptr) {
         destruirArbol(arbol->left);
@@ -157,7 +158,31 @@ void super_string::juntar(super_string &parteRecortada, super_string &parteSobra
     }
 }
 
+string invertirString(const string& input) {
+    string reversed = input;
+    int n = reversed.length();
+    for (int i = 0; i < n / 2; ++i) {
+        // Intercambiar los caracteres en las posiciones i y n-i-1
+        char temp = reversed[i];
+        reversed[i] = reversed[n - i - 1];
+        reversed[n - i - 1] = temp;
+    }
+    return reversed;
+}
 
+void super_string::reverso() {
+    // Llenar una pila con los nodos del árbol original
+    cout <<"la palabra a reversar es: "<< inOrden(arbol);
+    string palabra_invertida = invertirString(inOrden(arbol));
+    cout<<"\nLa palabra invertida es: " <<palabra_invertida;
+    destruirArbol(arbol);
+    int largo = palabra_invertida.length();
+    for (int i = 0; i < largo; i++)
+    {
+        insertarNodo(arbol, i, palabra_invertida[i]);
+    }
+    
+}
 
 void super_string::menu(super_string &arbol) {
     int dato, opcion, contador = 0;
@@ -173,7 +198,8 @@ void super_string::menu(super_string &arbol) {
         cout << "6. Eliminar intervalo" << endl;
         cout << "7. Separar super-string" << endl;
         cout << "8. Juntar super string" << endl;
-        cout << "9. Salir" << endl;
+        cout << "9. Revertir super string" << endl;
+        cout << "10. Salir" << endl;
         cout << "Opcion: ";
         cin >> opcion;
 
@@ -242,7 +268,16 @@ void super_string::menu(super_string &arbol) {
             cout << "\nPresiona cualquier numero para volver al menú...";
             cin >> Pause;
             break;
+        case 9:
+            cout << "\nReversando el super-string...\n";
+            arbol.reverso();
+            cout << "Super-string reversado:\n";
+            arbol.mostrarArbol(arbol.arbol, contador);
+            cout << "\nPresiona cualquier número para volver al menú...";
+            cin >> Pause;
+            break;
+            
         }
         system("clear");
-    } while (opcion != 9);
+    } while (opcion != 10);
 }
