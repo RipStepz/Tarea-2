@@ -89,6 +89,26 @@ super_string::nodo *super_string::minimo(nodo *arbol) {
         return arbol;
     }
 }
+string inOrden(nodo *arbol) {
+    string resultado = "";
+    if (arbol == nullptr) {
+        return resultado;
+    } else {
+        resultado += inOrden(arbol->left);
+        resultado += arbol->c;
+        resultado += inOrden(arbol->right);
+        return resultado;
+    }
+}
+
+void EliminarIntervalo(nodo *arbol ,int a, int b){
+    while (a <= b)
+    {
+        eliminar(arbol, a);
+        a +=1;
+    } 
+}
+
 void super_string::menu(super_string &arbol) {
     int dato, opcion, contador = 0;
     char c;
@@ -135,7 +155,87 @@ void super_string::menu(super_string &arbol) {
             arbol.eliminar(arbol.arbol, dato); // Cambiar arbol->eliminar por arbol.eliminar
             cout << "\n";
             break;
+        case 5:
+            cout <<"\nRecorrido en InOrden: "<< inOrden(arbol);
+            cout<<"\n\n";
+            cout << "\nPresiona cualquier numero para volver al menú...";
+            cin >> Pause;
+            break;
+        case 6:
+            int a, b;
+            cout<<"\n digite el primer digito: ";
+            cin >> a;
+            cout<<"\n digite el segundo digito: ";
+            cin>> b;
+            EliminarIntervalo(arbol ,a ,b );
         }
         system("clear");
-    } while (opcion != 5);
+    } while (opcion != 7);
 }
+
+void menu() {
+    int dato, opcion, contador = 0;
+    char c;
+    do {
+        cout << "\t.:Menu:." << endl;
+        cout << "1. Insertar un nuevo nodo" << endl;
+        cout << "2. Mostrar el arbol completo" << endl;
+        cout << "3. Buscar un elemento del arbol" << endl;
+        cout << "4. Eliminar un nodo del arbol" << endl;
+        cout << "5. Recorrer el arbol en PreOrden"<<endl;
+        cout <<"6. Eliminar Intervalo"<<endl;
+        cout << "7. Salir" << endl;
+        cout << "Opcion: ";
+        cin >> opcion;
+
+        switch (opcion) {
+        case 1:
+            cout << "\nDigite un numero: ";
+            cin >> dato;
+            cout << "Digite un caracter: ";
+            cin >> c;
+            insertarNodo(arbol, dato, c);
+            cout << "\n";
+            break;
+        case 2:
+            cout << "\nMostrando el arbol completo:\n\n";
+            int Pause;
+            mostrarArbol(arbol, contador);
+            cout << "\nPresiona cualquier numero para volver al menú...";
+            cin >> Pause;
+            break;
+        case 3:
+            cout << "\nDigite el elemento a buscar: ";
+            cin >> dato;
+            if (busqueda(arbol, dato)) {
+                cout << "\nElemento " << dato << " ha sido encontrado en el arbol";
+            } else {
+                cout << "\nElemento no encontrado";
+            }
+            cout << "\nPresiona cualquier numero para volver al menú...";
+            cin >> Pause;
+            break;
+        case 4:
+            cout << "\nDigite el numero a eliminar: ";
+            cin >> dato;
+            eliminar(arbol, dato);
+            cout << "\n";
+            break;
+        case 5:
+            cout <<"\nRecorrido en InOrden: "<< inOrden(arbol);
+            cout<<"\n\n";
+            cout << "\nPresiona cualquier numero para volver al menú...";
+            cin >> Pause;
+            break;
+        case 6:
+            int a, b;
+            cout<<"\n digite el primer digito: ";
+            cin >> a;
+            cout<<"\n digite el segundo digito: ";
+            cin>> b;
+            EliminarIntervalo(arbol ,a ,b );
+            
+        }
+        system("clear");
+    } while (opcion != 7);
+  }
