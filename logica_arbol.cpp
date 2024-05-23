@@ -184,6 +184,45 @@ void super_string::reverso() {
     
 }
 
+void super_string::recortarArbol() {
+    // Crear un vector para almacenar los nodos en inorden
+    vector<nodo*> inordenNodes;
+    
+    // Realizar un recorrido en inorden para obtener todos los nodos
+    stack<nodo*> stack;
+    nodo* current = arbol;
+    while (current != nullptr || !stack.empty()) {
+        while (current != nullptr) {
+            stack.push(current);
+            current = current->left;
+        }
+        current = stack.top();
+        stack.pop();
+        inordenNodes.push_back(current);
+        current = current->right;
+    }
+    
+    // Limpiar el árbol original antes de reconstruirlo
+    destruirArbol(arbol);
+    
+    // Construir el árbol optimizado de manera iterativa
+    int n = inordenNodes.size();
+    arbol = Arbol_Optimizado(inordenNodes, 0, n - 1);
+}
+
+super_string::nodo* super_string::Arbol_Optimizado(const vector<nodo*>& nodes, int start, int end) {
+    if (start > end) return nullptr;
+
+    int mid = start + (end - start) / 2; // Calcular el índice medio
+    nodo* n_Node = nodes[mid];
+
+    // Reconstruir el árbol de manera iterativa
+    n_Node->left = Arbol_Optimizado(nodes, start, mid - 1);
+    n_Node->right = Arbol_Optimizado(nodes, mid + 1, end);
+
+    return n_Node;
+}
+
 void super_string::menu(super_string &arbol) {
     int dato, opcion, contador = 0;
     char c;
@@ -199,7 +238,8 @@ void super_string::menu(super_string &arbol) {
         cout << "7. Separar super-string" << endl;
         cout << "8. Juntar super string" << endl;
         cout << "9. Revertir super string" << endl;
-        cout << "10. Salir" << endl;
+        cout << "10. recortar super string" << endl;
+        cout << "11. Salir" << endl;
         cout << "Opcion: ";
         cin >> opcion;
 
@@ -276,9 +316,15 @@ void super_string::menu(super_string &arbol) {
             cout << "\nPresiona cualquier número para volver al menú...";
             cin >> Pause;
             break;
-            
+        case 10:
+            cout << "\nRecortando el árbol...\n";
+            arbol.recortarArbol(); // Llama a la función recortarArbol
+            cout << "Árbol recortado:\n";
+            arbol.mostrarArbol(arbol.arbol, contador);
+            cout << "\nPresiona cualquier numero para volver al menú...";
+            cin >> Pause;
+            break;    
         }
         system("clear");
-    } while (opcion != 10);
+    } while (opcion != 11);
 }
-string i = "Borrame pls UwU";

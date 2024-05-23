@@ -38,5 +38,9 @@ public:
     void juntar(super_string &a, super_string &b);
     int obtenerIndiceMaximo(nodo *arbol);
     void reverso();
+    nodo *Arbol_Optimizado(const vector<nodo*>& nodes, int start, int end);
+    void recortarArbol();
+    //void guardar_inorden(nodo *arbol, vector<pair<int, char>>& nodes);
+    //int contarNodos(nodo* arbol);
 };
 #endif
