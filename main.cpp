@@ -8,7 +8,10 @@
 using namespace std;
 
 int main() {
-    super_string ss;
-    ss.menu();
+    super_string arbol; // Creamos una instancia de la clase super_string
+
+    // Llamamos a la función menu para comenzar la interacción con el usuario
+    arbol.menu(arbol);
+
     return 0;
 }
