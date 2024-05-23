@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <string>
 #include <algorithm>
+#include <stack>
 using namespace std;
 
 string invertirString(const string& input);
@@ -40,6 +41,7 @@ public:
     void reverso();
     nodo *Arbol_Optimizado(const vector<nodo*>& nodes, int start, int end);
     void recortarArbol();
+    void INSERTAR(nodo *& arbol, string palabra_a_insertar);
     //void guardar_inorden(nodo *arbol, vector<pair<int, char>>& nodes);
     //int contarNodos(nodo* arbol);
 };

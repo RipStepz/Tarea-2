@@ -223,6 +223,28 @@ super_string::nodo* super_string::Arbol_Optimizado(const vector<nodo*>& nodes, i
     return n_Node;
 }
 
+void super_string::INSERTAR(nodo *& arbol, string palabra_a_insertar){  
+    if(arbol == nullptr){
+        for (int i = 0; i < palabra_a_insertar.length(); i++)
+        {
+            insertarNodo(arbol,i, palabra_a_insertar[i]);
+        }
+    }
+    else{
+        string ObtenerIndice = inOrden(arbol);
+        int indiceInferior = ObtenerIndice.length() -1;
+        int indiceSuperior = indiceInferior + palabra_a_insertar.length();
+        int c = 0;
+        for (int i = indiceInferior; i < indiceSuperior; i++)
+        {
+            insertarNodo(arbol,i,palabra_a_insertar[c]);
+            c++;
+        }
+        
+    }
+}
+
+
 void super_string::menu(super_string &arbol) {
     int dato, opcion, contador = 0;
     char c;
@@ -239,7 +261,8 @@ void super_string::menu(super_string &arbol) {
         cout << "8. Juntar super string" << endl;
         cout << "9. Revertir super string" << endl;
         cout << "10. recortar super string" << endl;
-        cout << "11. Salir" << endl;
+        cout << "11. insertar un string" << endl;
+        cout << "12. Salir" << endl;
         cout << "Opcion: ";
         cin >> opcion;
 
@@ -323,8 +346,16 @@ void super_string::menu(super_string &arbol) {
             arbol.mostrarArbol(arbol.arbol, contador);
             cout << "\nPresiona cualquier numero para volver al menú...";
             cin >> Pause;
-            break;    
+            break;
+        case 11:
+            string ingresar;
+            cout << "\nIngrese la palabra a ingresar el arbol: \n";
+            cin >> ingresar;
+            INSERTAR(arbol.arbol , ingresar);
+            cout << "\nPresiona cualquier numero para volver al menú...";
+            cin >> Pause;
+            break;     
         }
         system("clear");
-    } while (opcion != 11);
+    } while (opcion != 12);
 }
