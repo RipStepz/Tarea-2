@@ -96,6 +96,9 @@ string super_string::inOrden(nodo *arbol) {
 }
 
 void super_string::EliminarIntervalo(nodo *arbol ,int a, int b){
+    if(a!=0){
+        a = a-1;
+        }
     while (a <= b) {
         eliminar(arbol, a);
         a += 1;
