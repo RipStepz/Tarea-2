@@ -101,20 +101,35 @@ void super_string::EliminarIntervalo(nodo *arbol ,int a, int b){
         a += 1;
     } 
 }
+void super_string::destruirArbol(nodo *&arbol) {
+    if (arbol != nullptr) {
+        destruirArbol(arbol->left);
+        destruirArbol(arbol->right);
+        delete arbol;
+        arbol = nullptr;
+    }
+}
 
 void super_string::separar(int i, super_string &a, super_string &b) {
+    // Recorta el árbol original para que contenga solo los primeros 'i' caracteres
+    b.destruirArbol(b.arbol); // Limpiar el árbol 'b' antes de asignarle nuevos nodos
+    
     string s = inOrden(arbol);
     string left_part = s.substr(0, i);
     string right_part = s.substr(i);
 
+    // Modificar el árbol original para contener solo los primeros 'i' caracteres
+    destruirArbol(arbol); // Limpiar el árbol original antes de asignarle nuevos nodos
     for (int j = 0; j < left_part.length(); j++) {
-        a.insertarNodo(a.arbol, j, left_part[j]);
+        insertarNodo(arbol, j, left_part[j]);
     }
 
+    // Insertar los caracteres restantes en el árbol 'b'
     for (int j = 0; j < right_part.length(); j++) {
         b.insertarNodo(b.arbol, j, right_part[j]);
     }
 }
+
 
 void super_string::menu(super_string &arbol) {
     int dato, opcion, contador = 0;
@@ -185,7 +200,7 @@ void super_string::menu(super_string &arbol) {
             cout << "\nDigite la posicion para separar: ";
             cin >> pos;
             arbol.separar(pos, s1, s2);
-            cout << "\nParte izquierda: " << inOrden(s1.arbol);
+            cout << "\nParte izquierda: " << inOrden(arbol.arbol);
             cout << "\nParte derecha: " << inOrden(s2.arbol);
             cout << "\nPresiona cualquier numero para volver al menú...";
             cin >> Pause;
