@@ -323,8 +323,8 @@ void super_string::ReversarIntervalo(nodo *& arbol, int limite_inferior , int li
 
     // Separar la palabra en tres partes: antes del intervalo, el intervalo y después del intervalo
     string p1 = palabra_reversar.substr(0, limite_inferior);
-    string p2 = palabra_reversar.substr(limite_inferior, limite_superior - limite_inferior + 1);
-    string p3 = palabra_reversar.substr(limite_superior + 1);
+    string p2 = palabra_reversar.substr(limite_inferior, limite_superior - limite_inferior);
+    string p3 = palabra_reversar.substr(limite_superior);
 
     // Invertir la parte central
     p2 = invertirString(p2);

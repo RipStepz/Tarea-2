@@ -48,9 +48,9 @@ string palabra;
             cout <<inOrden(arbol.arbol)<<endl;
         }
         
-        else if(palabra == "RECORTAR"){
-             RECORTAR();
-          }
+        // else if(palabra == "RECORTAR"){
+        //      RECORTAR();
+        //   }
 
         else if(palabra == "REVERSO"){
             int a, b;
@@ -66,5 +66,11 @@ string palabra;
                 ReversarIntervalo(arbol.arbol, a,b);
             }
         }
+        else if (palabra == "FIN")
+        {
+           fich.close();
+           break;
+        }
+        
     }
 }
