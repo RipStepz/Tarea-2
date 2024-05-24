@@ -66,8 +66,7 @@ string palabra;
                 ReversarIntervalo(arbol.arbol, a,b);
             }
         }
-        else if (palabra == "FIN")
-        {
+        else if (palabra == "FIN"){
             fich.close();
             destruirArbol(arbol.arbol);
             b.destruirArbol(b.arbol);
