@@ -221,9 +221,6 @@ void super_string::recortarArbol() {
     nodo** inordenNodes;
     int size = listaEnArray(head, inordenNodes);
 
-    // Limpiar el árbol original antes de reconstruirlo
-    destruirArbol(arbol);
-
     // Construir el árbol optimizado de manera iterativa
     arbol = Arbol_Optimizado(inordenNodes, 0, size - 1);
 

@@ -48,9 +48,9 @@ string palabra;
             cout <<inOrden(arbol.arbol)<<endl;
         }
         
-        // else if(palabra == "RECORTAR"){
-        //      RECORTAR();
-        //   }
+        else if(palabra == "RECORTAR"){
+              RECORTAR();
+           }
 
         else if(palabra == "REVERSO"){
             int a, b;
