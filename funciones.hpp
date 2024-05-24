@@ -7,7 +7,6 @@ using namespace std;
 
 string invertirString(const string& input);
 
-void menu();
 class super_string {
 private:
     struct nodo {
@@ -54,5 +53,6 @@ public:
     void actualizarAltura();
     int RECORTAR();
     void ReversarIntervalo(nodo *& arbol, int limite_inferior , int limite_superior);
+    void archivo(super_string &arbol);
 };
 #endif

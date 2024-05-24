@@ -313,7 +313,7 @@ void super_string::actualizarAltura() {
 int super_string::RECORTAR() {
         recortarArbol();
         actualizarAltura();
-        cout << "Altura del árbol después de recortar: " << height << endl;
+        cout << height << endl;
         return (height);
 }
 
@@ -470,7 +470,8 @@ void super_string::menu(super_string &arbol) {
             ReversarIntervalo(arbol.arbol, a , b);
             cout << "\nPresiona cualquier numero para volver al menú...";
             cin >> Pause;
-            break;   
+            break;
+           
         }
         system("clear");
     } while (opcion != 14);
