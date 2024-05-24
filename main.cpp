@@ -22,18 +22,16 @@ int main() {
         cout << palabra << endl; // Ejemplo: Imprimir cada palabra
         if (palabra == "INSERTAR")
         {
-
+            
         }
-
+        
     }
 
     fich.close(); // Cierra el archivo
     return 0;
+
     // Llamamos a la función menu para comenzar la interacción con el usuario
     //arbol.menu(arbol);
-    return 0;
-    // Llamamos a la función menu para comenzar la interacción con el usuario
-    arbol.menu(arbol);
 
     return 0;
 }
