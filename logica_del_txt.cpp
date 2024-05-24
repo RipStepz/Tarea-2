@@ -9,7 +9,7 @@
 using namespace std;
 
 ifstream fich("prueba.txt");
-void super_string::archivo(super_string &arbol){
+void super_string::archivo(super_string &arbol , super_string &b){
 
 if(!fich.is_open()) { // Verifica si el archivo se abrió correctamente
     cout << "No se pudo abrir el archivo." << endl;
@@ -69,7 +69,9 @@ string palabra;
         else if (palabra == "FIN")
         {
            fich.close();
-           break;
+           destruirArbol(arbol.arbol);
+           b.destruirArbol(b.arbol);
+            break;
         }
         
     }

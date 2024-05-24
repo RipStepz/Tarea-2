@@ -10,7 +10,8 @@ using namespace std;
 
 int main() {
     super_string arbol;
-    arbol.archivo(arbol);
+    super_string b;
+    arbol.archivo(arbol, b);
 
     //arbol.menu(arbol);
 
