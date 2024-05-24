@@ -187,45 +187,6 @@ void super_string::reverso() {
     
 }
 
-void super_string::recortarArbol() {
-    // Crear un vector para almacenar los nodos en inorden
-    vector<nodo*> inordenNodes;
-    
-    // Realizar un recorrido en inorden para obtener todos los nodos
-    stack<nodo*> stack;
-    nodo* current = arbol;
-    while (current != nullptr || !stack.empty()) {
-        while (current != nullptr) {
-            stack.push(current);
-            current = current->left;
-        }
-        current = stack.top();
-        stack.pop();
-        inordenNodes.push_back(current);
-        current = current->right;
-    }
-    
-    // Limpiar el árbol original antes de reconstruirlo
-    destruirArbol(arbol);
-    
-    // Construir el árbol optimizado de manera iterativa
-    int n = inordenNodes.size();
-    arbol = Arbol_Optimizado(inordenNodes, 0, n - 1);
-}
-
-super_string::nodo* super_string::Arbol_Optimizado(const vector<nodo*>& nodes, int start, int end) {
-    if (start > end) return nullptr;
-
-    int mid = start + (end - start) / 2; // Calcular el índice medio
-    nodo* n_Node = nodes[mid];
-
-    // Reconstruir el árbol de manera iterativa
-    n_Node->left = Arbol_Optimizado(nodes, start, mid - 1);
-    n_Node->right = Arbol_Optimizado(nodes, mid + 1, end);
-
-    return n_Node;
-}
-
 void super_string::INSERTAR(nodo *& arbol, string palabra_a_insertar){  
     if(arbol == nullptr){
         for (int i = 0; i < palabra_a_insertar.length(); i++)
@@ -247,6 +208,138 @@ void super_string::INSERTAR(nodo *& arbol, string palabra_a_insertar){
     }
 }
 
+void super_string::recortarArbol() {
+    
+    // Crear una lista enlazada para almacenar los nodos en inorden
+    NodoLista* head = nullptr;
+    NodoLista* tail = nullptr;
+
+    // Realizar un recorrido en inorden para obtener todos los nodos
+    inordenRecorrido(arbol, head, tail);
+
+    // Convertir la lista enlazada a un array dinámico
+    nodo** inordenNodes;
+    int size = listaEnArray(head, inordenNodes);
+
+    // Limpiar el árbol original antes de reconstruirlo
+    destruirArbol(arbol);
+
+    // Construir el árbol optimizado de manera iterativa
+    arbol = Arbol_Optimizado(inordenNodes, 0, size - 1);
+
+    // Liberar la memoria de la lista enlazada y del array
+    destruirLista(head);
+    delete[] inordenNodes;
+}
+
+void super_string::inordenRecorrido(nodo* current, NodoLista*& head, NodoLista*& tail) {
+    if (current == nullptr) return;
+
+    inordenRecorrido(current->left, head, tail);
+
+    NodoLista* nuevoNodo = new NodoLista(current);
+    if (tail == nullptr) {
+        head = tail = nuevoNodo;
+    } else {
+        tail->next = nuevoNodo;
+        tail = nuevoNodo;
+    }
+
+    inordenRecorrido(current->right, head, tail);
+}
+
+int super_string::listaEnArray(NodoLista* head, nodo**& array) {
+    // Primero, contar el número de nodos en la lista enlazada
+    int size = 0;
+    NodoLista* current = head;
+    while (current != nullptr) {
+        size++;
+        current = current->next;
+    }
+
+    // Crear un array dinámico del tamaño adecuado
+    array = new nodo*[size];
+    current = head;
+    for (int i = 0; i < size; i++) {
+        array[i] = current->data;
+        current = current->next;
+    }
+
+    return size;
+}
+
+void super_string::destruirLista(NodoLista* head) {
+    while (head != nullptr) {
+        NodoLista* temp = head;
+        head = head->next;
+        delete temp;
+    }
+}
+
+super_string::nodo* super_string::Arbol_Optimizado(nodo** nodes, int start, int end) {
+    if (start > end) return nullptr;
+
+    int mid = start + (end - start) / 2;
+    nodo* n_Node = nodes[mid];
+
+    // Reconstruir el árbol de manera iterativa
+    n_Node->left = Arbol_Optimizado(nodes, start, mid - 1);
+    n_Node->right = Arbol_Optimizado(nodes, mid + 1, end);
+
+    return n_Node;
+}
+
+int super_string::alturaArbolBinario(nodo* arbol) {
+  if (arbol == nullptr) {
+    return 0;
+  } else {
+    int alturaIzquierda = alturaArbolBinario(arbol->left);
+    int alturaDerecha = alturaArbolBinario(arbol->right);
+
+    if (alturaIzquierda > alturaDerecha) {
+      return alturaIzquierda + 1;
+    } else {
+      return alturaDerecha + 1;
+    }
+  }
+}
+
+void super_string::actualizarAltura() {
+        // Implementa la actualización de la altura del árbol
+        // Puedes usar una función recursiva para calcular la altura del árbol
+        this->height = alturaArbolBinario(this->arbol);
+    }
+
+int super_string::RECORTAR() {
+        recortarArbol();
+        actualizarAltura();
+        cout << "Altura del árbol después de recortar: " << height << endl;
+        return (height);
+}
+
+void super_string::ReversarIntervalo(nodo *& arbol, int limite_inferior , int limite_superior) {
+    // Obtener la palabra del árbol
+    string palabra_reversar = inOrden(arbol);
+
+    // Separar la palabra en tres partes: antes del intervalo, el intervalo y después del intervalo
+    string p1 = palabra_reversar.substr(0, limite_inferior);
+    string p2 = palabra_reversar.substr(limite_inferior, limite_superior - limite_inferior + 1);
+    string p3 = palabra_reversar.substr(limite_superior + 1);
+
+    // Invertir la parte central
+    p2 = invertirString(p2);
+
+    // Concatenar las tres partes en orden inverso
+    string retorno = p1 + p2 + p3;
+
+    // Destruir el árbol original
+    destruirArbol(arbol);
+
+    // Insertar los caracteres en el árbol
+    for (int i = 0; i < retorno.length(); i++) {
+        insertarNodo(arbol, i, retorno[i]);
+    }
+}
 
 void super_string::menu(super_string &arbol) {
     int dato, opcion, contador = 0;
@@ -263,9 +356,11 @@ void super_string::menu(super_string &arbol) {
         cout << "7. Separar super-string" << endl;
         cout << "8. Juntar super string" << endl;
         cout << "9. Revertir super string" << endl;
-        cout << "10. recortar super string" << endl;
+        cout << "10. recortar arbol super string" << endl;
         cout << "11. insertar un string" << endl;
-        cout << "12. Salir" << endl;
+        cout << "12. RECORTAR un string" << endl;
+        cout << "13. Reversar intervalo de un string" << endl;
+        cout << "14. Salir" << endl;
         cout << "Opcion: ";
         cin >> opcion;
 
@@ -351,14 +446,32 @@ void super_string::menu(super_string &arbol) {
             cin >> Pause;
             break;
         case 11:
-            string ingresar;
-            cout << "\nIngrese la palabra a ingresar el arbol: \n";
-            cin >> ingresar;
-            INSERTAR(arbol.arbol , ingresar);
+            {
+                string ingresar;
+                cout << "\nIngrese la palabra a ingresar el arbol: \n";
+                cin >> ingresar;
+                INSERTAR(arbol.arbol , ingresar);
+                cout << "\nPresiona cualquier numero para volver al menú...";
+                cin >> Pause;
+                break; 
+            } 
+        case 12:
+            cout << "\nLa Altura nueva es: \n";
+            RECORTAR();
             cout << "\nPresiona cualquier numero para volver al menú...";
             cin >> Pause;
-            break;     
+            break;
+        case 13:
+
+            cout << "\ningrese indice inferior:\n";
+            cin >> a;
+            cout << "\ningrese indice superior:\n";
+            cin >> b;
+            ReversarIntervalo(arbol.arbol, a , b);
+            cout << "\nPresiona cualquier numero para volver al menú...";
+            cin >> Pause;
+            break;   
         }
         system("clear");
-    } while (opcion != 12);
+    } while (opcion != 14);
 }

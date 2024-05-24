@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <string>
 #include <algorithm>
-#include <stack>
 using namespace std;
 
 string invertirString(const string& input);
@@ -17,6 +16,12 @@ private:
         char c;
         nodo(int index, char c) : index(index), c(c), left(nullptr), right(nullptr) {}
         nodo() {}
+    };
+
+    struct NodoLista {
+    nodo* data;
+    NodoLista* next;
+    NodoLista(nodo* dataPtr) : data(dataPtr), next(nullptr) {}
     };
 
     int height = 0; // Altura del árbol
@@ -39,10 +44,15 @@ public:
     void juntar(super_string &a, super_string &b);
     int obtenerIndiceMaximo(nodo *arbol);
     void reverso();
-    nodo *Arbol_Optimizado(const vector<nodo*>& nodes, int start, int end);
     void recortarArbol();
+    nodo* Arbol_Optimizado(nodo** nodes, int start, int end);
+    void inordenRecorrido(nodo* current, NodoLista*& head, NodoLista*& tail);
+    int listaEnArray(NodoLista* head, nodo**& array);
+    void destruirLista(NodoLista* head);
     void INSERTAR(nodo *& arbol, string palabra_a_insertar);
-    //void guardar_inorden(nodo *arbol, vector<pair<int, char>>& nodes);
-    //int contarNodos(nodo* arbol);
+    int alturaArbolBinario(nodo* arbol);
+    void actualizarAltura();
+    int RECORTAR();
+    void ReversarIntervalo(nodo *& arbol, int limite_inferior , int limite_superior);
 };
 #endif
