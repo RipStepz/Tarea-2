@@ -68,9 +68,9 @@ string palabra;
         }
         else if (palabra == "FIN")
         {
-           fich.close();
-           destruirArbol(arbol.arbol);
-           b.destruirArbol(b.arbol);
+            fich.close();
+            destruirArbol(arbol.arbol);
+            b.destruirArbol(b.arbol);
             break;
         }
         
