@@ -13,46 +13,47 @@ private:
         nodo *left = nullptr, *right = nullptr;
         int index;
         char c;
-        nodo(int index, char c) : index(index), c(c), left(nullptr), right(nullptr) {}
+        nodo(int index, char c) : index(index), c(c), left(nullptr), right(nullptr) {} //Agregamos este constructor, para inicializar los valores de los nodos de una forma predeterminada cada vez que creamos alguno/{}
         nodo() {}
     };
-
+    // Agregamos el struct NodoLista, para tener una lista enlazada con los nodos del root, esto nos sirve para poder trabajar con el root de forma mas facil.
     struct NodoLista {
-    nodo* data;
-    NodoLista* next;
+    nodo* data;  
+    NodoLista* next; 
     NodoLista(nodo* dataPtr) : data(dataPtr), next(nullptr) {}
     };
 
-    int height = 0; // Altura del árbol
-    int length = 0; // Largo del super-string
-    nodo* arbol = nullptr; // Raíz del super-string (nodo* root)
+    int height = 0; 
+    int length = 0; 
+    nodo* root = nullptr; // Raíz del super-string (nodo* root)
 
 public:
     super_string() {}
-    void menu(super_string &arbol);
+    void menu(super_string &root);
     nodo *crearNodo(int n, char ch);
-    void insertarNodo(nodo *& arbol, int index, char c);
-    void mostrarArbol(nodo *arbol, int cont);
-    bool busqueda(nodo *arbol, int index);
-    void eliminar(nodo *&arbol, int index);
-    nodo *minimo(nodo *arbol);
-    string inOrden(nodo *arbol);
-    void EliminarIntervalo(nodo *arbol ,int a, int b);
-    void destruirArbol(nodo *&arbol);
-    void separar(int i, super_string &a, super_string &b); // Nueva función separar
+    void insertar(nodo *& root, int index, char c);
+    void mostrararbol(nodo *root, int cont);
+    bool busqueda(nodo *root, int index);
+    void eliminar(nodo *&root, int index);
+    nodo *minimo(nodo *root);
+    string stringizar(nodo *root);
+    void EliminarIntervalo(nodo *root ,int a, int b);
+    void limpiar(nodo *&root);
+    void separar(int i, super_string &a, super_string &b); 
     void juntar(super_string &a, super_string &b);
-    int obtenerIndiceMaximo(nodo *arbol);
+    int obtenerIndiceMaximo(nodo *root);
     void reverso();
-    void recortarArbol();
+    void recortararbol();
     nodo* Arbol_Optimizado(nodo** nodes, int start, int end);
-    void inordenRecorrido(nodo* current, NodoLista*& head, NodoLista*& tail);
+    void InOrdenRecorrido(nodo* current, NodoLista*& head, NodoLista*& tail);
     int listaEnArray(NodoLista* head, nodo**& array);
     void destruirLista(NodoLista* head);
-    void INSERTAR(nodo *& arbol, string palabra_a_insertar);
-    int alturaArbolBinario(nodo* arbol);
+    void INSERTAR(nodo *& root, string palabra_a_insertar);
+    int altura_arbolBinario(nodo* root);
     void actualizarAltura();
     int RECORTAR();
-    void ReversarIntervalo(nodo *& arbol, int limite_inferior , int limite_superior);
-    void archivo(super_string &arbol, super_string &b);
+    void ReversarIntervalo(nodo *& root, int limite_inferior , int limite_superior);
+    void agregar(char c);
+    void archivo(super_string &root, super_string &b);
 };
 #endif

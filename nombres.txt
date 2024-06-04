@@ -1,0 +1,32 @@
+1.- Arturo Almonacid 202373515-9
+2.- Martina Hidalgo 202373597-3
+
+
+Arturo:
+-eliminar
+-minimo 
+-eliminar_intervalo
+-juntar
+-obtenerindicemaximo
+-reverso
+-Reversarintervalo
+-stringizar
+-insertar
+-limpiar
+-invertirstring
+-archivo
+
+Martina:
+-agregar
+-RECORTAR
+-actualizaraltura
+-altura_arbolBinario
+-recortararbol
+-InOrdenRecorrido
+-listaenarray
+-ArbolOptimizado 
+-destruirLista
+-INSERTAR
+-separar
+-crearModa
+
